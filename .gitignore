@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.local-notes/
+*.tgz
+*.bak
+.state/
+*.jsonl.durable/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
