@@ -1,8 +1,18 @@
 {
-  "name": "pi-durable-harness",
+  "name": "@harrarz/pi-durable-harness",
   "version": "0.1.0",
-  "private": true,
-  "description": "Keep normal Pi; use Pi Durable to recover interrupted work in the same session.",
+  "license": "MIT",
+  "author": "harrarz",
+  "description": "Recover interrupted Pi sessions with Pi Durable, without replacing your agent.",
+  "keywords": ["pi-package", "pi-extension", "durable", "session-recovery", "coding-agents"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harrarz/pi-durable-harness.git"
+  },
+  "homepage": "https://github.com/harrarz/pi-durable-harness#readme",
+  "bugs": "https://github.com/harrarz/pi-durable-harness/issues",
+  "publishConfig": { "access": "public" },
+  "files": ["src", "docs/configuration.md", "README.md", "LICENSE", "CHANGELOG.md"],
   "type": "module",
   "engines": { "node": ">=22.19.0" },
   "pi": { "extensions": ["./src/index.ts"] },
@@ -10,7 +20,10 @@
     "start": "pi -e ./src/index.ts",
     "test": "node --experimental-strip-types --test test/*.test.ts test/*.test.mjs",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm test",
+    "check:package": "node scripts/check-package.mjs",
+    "test:package": "node scripts/pack-smoke.mjs",
+    "check": "npm run typecheck && npm test && npm run check:package",
+    "prepublishOnly": "npm run check",
     "smoke": "node scripts/smoke.mjs",
     "smoke:recovery": "node scripts/live-recovery.mjs",
     "smoke:agents": "PI_DURABLE_LIVE_DELEGATE=1 node scripts/live-recovery.mjs",
@@ -24,6 +37,10 @@
   "peerDependencies": {
     "@earendil-works/pi-ai": "*",
     "@earendil-works/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-ai": { "optional": true },
+    "@earendil-works/pi-coding-agent": { "optional": true }
   },
   "devDependencies": {
     "@earendil-works/pi-ai": "1.5.2",

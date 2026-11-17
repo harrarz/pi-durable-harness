@@ -1,0 +1,6 @@
+# package.json files is the publication allowlist.
+.env*
+*.bak
+*.log
+*.tgz
+.local-notes/
